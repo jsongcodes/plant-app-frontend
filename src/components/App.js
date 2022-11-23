@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewPlant from "./NewPlant";
-import PastPlants from "./PastPlants";
+// import PastPlants from "./PastPlants";
 import Home from "./Home";
 
 const App = () => {
@@ -14,6 +14,11 @@ const App = () => {
       .then((data) => setPlants(data));
   }, []);
 
+  function handleAddPlants(newPlant) {
+    const updatedPlants = [...plants, newPlant];
+    setPlants(updatedPlants);
+  }
+
   return (
     <Router>
       <div className="App">
@@ -23,9 +28,9 @@ const App = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/plants">
+            {/* <Route path="/plants">
               <PastPlants plants={plants}/>
-            </Route>
+            </Route> */}
             <Route path="/newplant">
               <NewPlant onAddPlant={handleAddPlants} />
             </Route>
