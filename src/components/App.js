@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./Navbar";
 import NewPlant from "./NewPlant";
-// import PastPlants from "./PastPlants";
+import PlantPage from "./PlantPage";
 import Home from "./Home";
 
 const App = () => {
@@ -28,9 +28,9 @@ const App = () => {
             <Route exact path="/">
               <Home />
             </Route>
-            {/* <Route path="/plants">
-              <PastPlants plants={plants}/>
-            </Route> */}
+            <Route path="/plants">
+              <PlantPage plants={plants}/>
+            </Route>
             <Route path="/newplant">
               <NewPlant onAddPlant={handleAddPlants} />
             </Route>
