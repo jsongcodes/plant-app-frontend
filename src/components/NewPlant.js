@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
+
 
 const NewPlant = () => {
     const [inputForm, setInputForm] = useState({
@@ -7,6 +9,27 @@ const NewPlant = () => {
         description: "",
         plantCare: "",
       });
+
+      const history = useHistory();
+
+      const handleChange = (e) => {
+        setInputForm({ ...inputForm, [e.target.name]: e.target.value });
+      };
+    
+      const handleSubmit = (e) => {
+        e.preventDefault();
+    
+        fetch("http://localhost:9292", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(inputForm),
+        })
+          .then((resp) => resp.json())
+          .then((data) => onAddPlant(data))
+          .then(() => {
+            history.push(`/plants`);
+          });
+      };
     
     return (
         <div className="new-plant">
