@@ -73,7 +73,7 @@ body {
   margin-bottom: 8px;
 }
 
-.new-entry {
+.new-plant {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
@@ -81,18 +81,18 @@ body {
   align-items: center;
 
 }
-.new-entry {
+.new-plant {
   text-align: left;
   display: block;
   text-align: center;
   align-items: center;
 }
-.new-entry h2 {
+.new-plant h2 {
   font-size: 30px;
   color: #796fc1;
   margin-bottom: 30px;
 }
-.new-entry input, .new-entry select {
+.new-plant input, .new-plant select {
   width: 100%;
   padding: 10px 10px;
   margin: 20px 0;
@@ -102,7 +102,7 @@ body {
   border-radius: 15px;
 }
 
-.new-entry textarea{
+.new-plant textarea{
   width: 100%;
   padding: 50px 10px;
   margin: 20px 0;
@@ -112,7 +112,7 @@ body {
   border-radius: 15px;
 }
 
-.new-entry button {
+.new-plant button {
   background: #d2eff5;
   color: #796fc1;
   border: 1;
