@@ -54,14 +54,13 @@ function UsersContainer() {
     })
       .then(res => res.json()) 
       .then(updatedUser => {
-        // pessimistically update the dog in state after we get a response from the api
         setUsers(users.map((user) => (user.id === parseInt(id) ? updatedUser : user)));
         history.push(`/${updatedUser.id}`);
       })
   }
 
   const deleteUser = (userId) => {
-    if (window.confirm('Are you sure you want to delete this dog?')) {
+    if (window.confirm('Are you sure you want to delete this user?')) {
       // optimistically update the ui
       setUsers(users.filter(user => user.id !== parseInt(userId)))
       // update the API
@@ -94,10 +93,7 @@ function UsersContainer() {
           path="/users/:id"
           render={({ match }) => (
             <UserDetail
-            //   togglePoo={togglePoo}
-            //   deleteDogWalk={deleteDogWalk}
               deleteUser={deleteUser}
-            //   addDogWalk={addDogWalk}
               user={users.find((user) => user.id === parseInt(match.params.id))}
             />
           )}
