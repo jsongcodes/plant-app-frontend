@@ -11,6 +11,7 @@ function PlantDetail({ plant = {}, handleDelete }) {
             <span>
               <img src={plant.image_url} alt={plant.plant_name} />
               {plant.plant_name}
+              
             </span>
             <span></span>
           </li>

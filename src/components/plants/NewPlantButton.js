@@ -5,7 +5,7 @@ function NewPlantButton() {
     <Link
       to="/plants/new"
     >
-      New Plant
+      new plant
     </Link>
   );
 }
