@@ -5,7 +5,7 @@ function NewUserButton() {
     <Link
       to="/users/new"
     >
-      New User
+      new user
     </Link>
   );
 }
