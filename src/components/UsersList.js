@@ -13,7 +13,7 @@ const UsersList = ({ users, plants}) => {
   const history = useHistory();
 
   return (
-    <div>
+    <div className="home-class">
       <h2>Who are you?</h2>
       <button
       onClick={() => {
@@ -26,13 +26,15 @@ const UsersList = ({ users, plants}) => {
           container
           direction="row"
           justifyContent="space-evenly"
+          margin="10px"
           alignItems="center"
         >
           {users.map((user) => (
             <Card key={user.id} sx={{ maxWidth: 400 }}>
               <CardMedia
                 component="img"
-                height="280"
+                height="500"
+                width="300"
                 image={user.user_image_url}
                 alt="user"
               />
