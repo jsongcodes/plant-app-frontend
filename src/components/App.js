@@ -1,30 +1,26 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import React, { useState, useEffect } from "react";
+import Home from "./Home";
 // import { Navigate } from "react-router-dom";
 
-
 import Navbar from "./Navbar";
-
 import NewUserForm from "./NewUserForm";
 import UserDetail from "./UserDetail";
 import UsersList from "./UsersList";
-
-import PlantsContainer from "./PlantsContainer";
 
 import NewPlantForm from "./NewPlantForm";
 import PlantsList from "./PlantsList";
 // import PlantsToolBar from "./PlantsToolBar";
 import PlantDetail from "./PlantDetail";
-import PlantEditForm from "./PlantEditForm"
-import { useParams, useLocation } from "react-router-dom";
+import PlantEditForm from "./PlantEditForm";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
   const history = useHistory();
 
   // const { id } = useParams();
 
-  
   const [users, setUsers] = useState([]);
   const [plants, setPlants] = useState([]);
 
@@ -45,15 +41,13 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((newUser) => {
-        setUsers([...users, newUser])
-        console.log("history:", history)
+        setUsers([...users, newUser]);
+        console.log("history:", history);
         console.log("newUser.id:", newUser.id);
         // Navigate to=`/users/${newUser.id}`;
         history.push(`/users/${newUser.id}`);
-
       });
   };
-
 
   useEffect(() => {
     fetch(`http://localhost:9292/plants`)
@@ -63,8 +57,6 @@ const App = () => {
 
   // const location = useLocation();
   // const { id } = useParams();
-
-
 
   const handleDelete = (plantId) => {
     if (window.confirm("delete?")) {
@@ -99,25 +91,33 @@ const App = () => {
 
   const updatePlant = (id, formData) => {
     fetch(`http://localhost:9292/plants/${id}`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json'
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-      body: JSON.stringify(formData)
+      body: JSON.stringify(formData),
     })
-      .then(res => res.json()) 
-      .then(updatedPlant => {
+      .then((res) => res.json())
+      .then((updatedPlant) => {
         // pessimistically update the plant in state after we get a response from the api
-        setPlants(plants.map((plant) => (plant.id === parseInt(id) ? updatedPlant : plant)));
+        setPlants(
+          plants.map((plant) =>
+            plant.id === parseInt(id) ? updatedPlant : plant
+          )
+        );
         history.push(`/plants/${updatedPlant.id}`);
-      })
-  }
+      });
+  };
 
   return (
     <Router>
       <Navbar />
       <Switch>
+      <Route exact path="/">
+          <Home />
+        </Route>
+
         <Route exact path="/users">
           <UsersList users={users} />
         </Route>
@@ -130,7 +130,6 @@ const App = () => {
           path="/users/:id"
           render={({ match }) => (
             <UserDetail
-           
               user={users.find((user) => user.id === parseInt(match.params.id))}
             />
           )}
@@ -150,10 +149,12 @@ const App = () => {
         </Route>
         <Route exact path="/plants/new">
           <NewPlantForm
-          // id={id}
-          plants={plants} onAddPlant={addPlant} setPlants={setPlants}/>
+            // id={id}
+            plants={plants}
+            onAddPlant={addPlant}
+            setPlants={setPlants}
+          />
         </Route>
-
 
         <Route
           exact
@@ -172,7 +173,9 @@ const App = () => {
           path="/plants/:id/edit"
           render={({ match }) => (
             <PlantEditForm
-              plant={plants.find((plant) => plant.id === parseInt(match.params.id))}
+              plant={plants.find(
+                (plant) => plant.id === parseInt(match.params.id)
+              )}
               updatePlant={updatePlant}
               // id={id}
             />
