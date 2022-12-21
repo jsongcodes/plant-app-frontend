@@ -13,14 +13,17 @@ import UsersList from "./UsersList";
 import PlantsContainer from "./PlantsContainer";
 
 import NewPlantForm from "./NewPlantForm";
-// import PlantsList from "./PlantsList";
+import PlantsList from "./PlantsList";
 // import PlantsToolBar from "./PlantsToolBar";
 import PlantDetail from "./PlantDetail";
-// import PlantEditForm from "./PlantEditForm"
+import PlantEditForm from "./PlantEditForm"
 import { useParams, useLocation } from "react-router-dom";
 
 const App = () => {
   const history = useHistory();
+
+  // const { id } = useParams();
+
   
   const [users, setUsers] = useState([]);
   const [plants, setPlants] = useState([]);
@@ -52,20 +55,15 @@ const App = () => {
   };
 
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:9292/plants`)
-  //     .then((resp) => resp.json())
-  //     .then((plants) => setPlants(plants));
-  // }, []);
+  useEffect(() => {
+    fetch(`http://localhost:9292/plants`)
+      .then((resp) => resp.json())
+      .then((plants) => setPlants(plants));
+  }, []);
 
   // const location = useLocation();
   // const { id } = useParams();
 
-  // useEffect(() => {
-  //   fetch(`http://localhost:9292/plants`)
-  //     .then((resp) => resp.json())
-  //     .then((plants) => setPlants(plants));
-  // }, []);
 
 
   const handleDelete = (plantId) => {
@@ -99,22 +97,22 @@ const App = () => {
       });
   };
 
-  // const updatePlant = (id, formData) => {
-  //   fetch(`http://localhost:9292/plants/${id}`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Accept: 'application/json'
-  //     },
-  //     body: JSON.stringify(formData)
-  //   })
-  //     .then(res => res.json()) 
-  //     .then(updatedPlant => {
-  //       // pessimistically update the plant in state after we get a response from the api
-  //       setPlants(plants.map((plant) => (plant.id === parseInt(id) ? updatedPlant : plant)));
-  //       history.push(`/plants/${updatedPlant.id}`);
-  //     })
-  // }
+  const updatePlant = (id, formData) => {
+    fetch(`http://localhost:9292/plants/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+      .then(res => res.json()) 
+      .then(updatedPlant => {
+        // pessimistically update the plant in state after we get a response from the api
+        setPlants(plants.map((plant) => (plant.id === parseInt(id) ? updatedPlant : plant)));
+        history.push(`/plants/${updatedPlant.id}`);
+      })
+  }
 
   return (
     <Router>
@@ -138,18 +136,18 @@ const App = () => {
           )}
         />
 
-        <Route exact path="/plants">
+        {/* <Route exact path="/plants">
           <PlantsContainer
             plants={plants}
             setPlants={setPlants}
             users={users}
             setUsers={setUsers}
           />
-        </Route>
-
-        {/* <Route exact path="/plants">
-          <PlantsList plants={plants} handleDelete={handleDelete} />
         </Route> */}
+
+        <Route exact path="/plants">
+          <PlantsList plants={plants} handleDelete={handleDelete} />
+        </Route>
         <Route exact path="/plants/new">
           <NewPlantForm
           // id={id}
@@ -169,17 +167,17 @@ const App = () => {
             />
           )}
         ></Route>
-        {/* <Route
+        <Route
           exact
           path="/plants/:id/edit"
           render={({ match }) => (
             <PlantEditForm
               plant={plants.find((plant) => plant.id === parseInt(match.params.id))}
               updatePlant={updatePlant}
-              id={id}
+              // id={id}
             />
           )}
-        /> */}
+        />
       </Switch>
     </Router>
   );
