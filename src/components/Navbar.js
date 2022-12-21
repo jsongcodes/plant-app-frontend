@@ -16,7 +16,7 @@ const Navbar = () => {
           color="inherit"
           href="/"
         >
-          <h1>Plantcare 101</h1>
+          <h1>plantparenthood</h1>
         </Link>
         
         <div>
