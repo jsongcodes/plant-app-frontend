@@ -15,7 +15,9 @@ function NewUserForm({ addUser }) {
 
   return (
     <Box
+    className="home-class"
       component="form"
+      
       sx={{
         "& .MuiTextField-root": { m: 1, width: "40ch" },
       }}
@@ -23,6 +25,7 @@ function NewUserForm({ addUser }) {
       autoComplete="off"
     >
       <h1>new user</h1>
+      <div>
       <TextField
         required
         type="text"
@@ -30,7 +33,8 @@ function NewUserForm({ addUser }) {
         label="user full name"
         value={user_full_name}
         onChange={(e) => setUserFullName(e.target.value)}
-      />
+      /></div>
+      <div>
       <TextField
         required
         type="text"
@@ -38,15 +42,17 @@ function NewUserForm({ addUser }) {
         label="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-      />
-      <TextField
+      /></div>
+      <div>
+        <TextField
         required
         type="text"
         name="user_image_url"
         label="user image url"
         value={user_image_url}
         onChange={(e) => setUserImageUrl(e.target.value)}
-      />
+      /></div>
+      <div>
       <TextField
         required
         type="text"
@@ -55,6 +61,7 @@ function NewUserForm({ addUser }) {
         value={years_of_experience}
         onChange={(e) => setYearsOfExperience(e.target.value)}
       />
+      </div>
       <button type="submit"
             onClick={handleSubmit}>Add User</button>
     </Box>
