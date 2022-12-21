@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-const PlantEditForm = ({ plant = {}, updatePlant, id }) => {
+const PlantEditForm = ({ plant = {}, updatePlant }) => {
   const [plant_name, setPlantName] = useState(plant.plant_name);
   const [plant_nickname, setPlantNickname] = useState(plant.plant_nickname);
   const [plant_image_url, setPlantImageUrl] = useState(plant.plant_image_url);
@@ -14,7 +14,7 @@ const PlantEditForm = ({ plant = {}, updatePlant, id }) => {
     plant.plant_description
   );
 
-  // const { id } = useParams();
+  const { id } = useParams();
 
   const handleSubmit = (e) => {
     e.preventDefault();
