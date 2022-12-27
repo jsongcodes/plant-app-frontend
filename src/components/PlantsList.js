@@ -1,36 +1,39 @@
 import PlantListItem from "./PlantListItem";
-import { ImageList } from "@mui/material";
-import { ImageListItem } from "@mui/material";
-// import { ImageListItemBar } from "@mui/material";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
 
 const PlantsList = ({ plants, handleDelete }) => {
-
-  return (    
-    <ImageList variant="woven" cols={3} gap={8}>
-      {plants.map((plant) => (
-        <ImageListItem key={plant.plant_image_url}>
-          <img
-            src={`${plant.plant_image_url}?w=248&fit=crop&auto=format`}
-            srcSet={`${plant.plant_image_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-            alt={plant.title}
-            loading="lazy"
-          />
-          <PlantListItem
-            key={plant.id}
-            plant={plant}
-            handleDelete={handleDelete}
-          />
-          
-          {/* <ImageListItemBar
-            title={plant.title}
-            subtitle={<span>by: {plant.author}</span>}
-            position="below"
-          />           */}
-          
-        </ImageListItem>
-
+  return (
+    <div className="home-class">
+      {Array.from(Array).map((_, index) => (
+        <Grid
+          key={index}
+          container
+          direction="row"
+          justifyContent="space-evenly"
+          margin="10px"
+          alignItems="center"
+        >
+          {plants.map((plant) => (
+            <Card key={plant.id} sx={{ maxWidth: 330, margin: "15px" }}>
+              <CardMedia
+                component="img"
+                height="500"
+                width="300"
+                image={plant.plant_image_url}
+                alt="plant"
+              />
+              <PlantListItem
+                key={plant.plant_name}
+                plant={plant}
+                handleDelete={handleDelete}
+              />
+            </Card>
+          ))}
+        </Grid>
       ))}
-    </ImageList>
+    </div>
   );
 };
 
