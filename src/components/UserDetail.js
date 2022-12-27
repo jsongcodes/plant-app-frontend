@@ -1,52 +1,66 @@
-import { useHistory } from "react-router-dom";
-import { ImageListItem } from "@mui/material";
-import { ImageList } from "@mui/material";
-import PlantListItem from "./PlantListItem";
+import { useHistory, Link } from "react-router-dom";
+import Grid from "@mui/material/Grid";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
-import Link from "@mui/material/Link";
-import * as React from "react";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
-
-const UserDetail = ({ user = {} }) => {
-  const {
-    id,
-    user_full_name,
-    username,
-    user_image_url,
-    years_of_experience,
-    plants,
-  } = user;
+const UserDetail = ({ user = {}, currentUser }) => {
+  const { 
+    user_full_name, plants } = user;
 
   const history = useHistory();
 
   return (
-    <div>
+    <div className="home-class">
       <h1>{user_full_name}'s plants</h1>
-      <p>{username}</p>
-      <ImageList variant="woven" cols={3} gap={8}>
-        {plants.map((plant) => (
-          <ImageListItem key={plant.plant_image_url}>
-            <img
-              src={`${plant.plant_image_url}?w=248&fit=crop&auto=format`}
-              srcSet={`${plant.plant_image_url}?w=248&fit=crop&auto=format&dpr=2 2x`}
-              alt={plant.title}
-              loading="lazy"
-            />
-            <PlantListItem key={plant.id} plant={plant} />
-          </ImageListItem>
-        ))}
-      </ImageList>
+      <button onClick={() => history.push(`/users/${currentUser}/plants/new`)}>
+        add plant
+      </button>
 
-      <Breadcrumbs aria-label="breadcrumb">
-        <Link
-          underline="hover"
-          sx={{ display: "flex", alignItems: "center" }}
-          color="inherit"
-          href="/plants/new"
+      {Array?.from(Array).map((_, index) => (
+        <Grid
+          key={index}
+          container
+          direction="row"
+          justifyContent="space-evenly"
+          margin="10px"
+          alignItems="center"
         >
-          new plant
-        </Link>
-      </Breadcrumbs>
+          {plants?.map((plant) => (
+            <Card key={plant.id} sx={{ maxWidth: 500, margin: "15px" }}>
+              <CardMedia
+                component="img"
+                height="500"
+                width="300"
+                image={plant.plant_image_url}
+                alt="plant"
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  <Link to={`/users/${currentUser}/plants/${plant.id}`}>{plant.plant_name}</Link>
+                </Typography>
+                <Typography margin="5px" variant="body2" color="text.secondary">
+                  <b>nickname: </b>
+                  {plant.plant_nickname}
+                </Typography>
+                <Typography margin="5px" variant="body2" color="text.secondary">
+                  <b>environment:</b> {plant.environment}
+                </Typography>
+                <Typography margin="5px" variant="body2" color="text.secondary">
+                  <b>water level:</b> {plant.water_level}
+                </Typography>
+                <Typography margin="5px" variant="body2" color="text.secondary">
+                  <b>sunlight hours:</b> {plant.sunlight_hours}
+                </Typography>
+                <Typography margin="5px" variant="body2" color="text.secondary">
+                  <b>plant description:</b> {plant.plant_description}
+                </Typography>
+              </CardContent>
+            </Card>
+          ))}
+        </Grid>
+      ))}
     </div>
   );
 };
