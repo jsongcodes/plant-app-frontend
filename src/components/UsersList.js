@@ -2,13 +2,11 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import UserListItem from "./UserListItem";
-import Grid from "@mui/material/Grid"; // Grid version 1
+import Grid from "@mui/material/Grid";
 import { useHistory } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
-
-
-const UsersList = ({ users, plants}) => {
+const UsersList = ({ users, currentUser, setCurrentUser}) => {
 
   const history = useHistory();
 
@@ -30,17 +28,20 @@ const UsersList = ({ users, plants}) => {
           alignItems="center"
         >
           {users.map((user) => (
-            <Card key={user.id} sx={{ maxWidth: 400 }}>
+            <Card key={user.id} sx={{ maxWidth: 330, margin:"15px" }}>
               <CardMedia
                 component="img"
                 height="500"
                 width="300"
                 image={user.user_image_url}
                 alt="user"
+
               />
               <UserListItem
                 key={user.id}
                 user={user}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
               />
             </Card>
           ))}
