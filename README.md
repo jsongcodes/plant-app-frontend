@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# plantparenthood
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Being a plant parent requires a lot of care and attention. With plantparenthood, you can create a collection of plants and specific directions on how to keep them thriving!
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+In a terminal, type the following:
 
-### `npm start`
+```
+git clone git@github.com:jsongcodes/phase-3-sinatra-react-project.git
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+npm install
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+npm start
+```
 
-### `npm test`
+Open a terminal in VSCode and type in:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+bundle install
+```
 
-### `npm run build`
+## Migration and Seed
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+bundle exec rake db:migrate db:seed
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+bundle exec rake db:migrate
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Backend Server
 
-### `npm run eject`
+To get the backend server to run, type the command line:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+bundle exec rake server
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In a browser window, go to http://localhost:9292/users or http://localhost:9292/plants.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Frontend repo:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+https://github.com/jsongcodes/plant-app-frontend
 
-## Learn More
+## Relationships within Database
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Users
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+has many plants
 
-### Code Splitting
+### Plants
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+plants belong to a user
 
-### Analyzing the Bundle Size
+## Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Plant parents are able to create a collection of plants with their information and directions on how to take care of them. They are able to see their existing plants, edit the plants' information, and delete their plants. New users are able to register and start this process.
 
-### Making a Progressive Web App
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+[MIT](https://choosealicense.com/licenses/mit/)
