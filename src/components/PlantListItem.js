@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
-import { ImageListItemBar } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
 
-const PlantListItem = ({ plant}) => {
+const PlantListItem = ({ plant: {id, plant_name} }) => {
   return (
-    // <li key={plant.id}>
-    <>
-      <div>
-        <Link to={`/plants/${plant.id}`}>
-          <ImageListItemBar title={plant.plant_name} position="below" />
-        </Link>
-      </div>
-
-    </>
-    // </li>
+    <div>
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          <Link to={`/plants/${id}`}>{plant_name}</Link>
+        </Typography>
+      </CardContent>
+    </div>
   );
 };
 
