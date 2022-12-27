@@ -3,158 +3,95 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300&display=swap');
 
-html, body {
-  width: 100%;
-  height:100%;
-  font-family: 'EB Garamond', serif;
 
+
+/* .title{
+   font-family: 'Rampart One', cursive; 
+  font-family: 'Londrina Shadow', cursive;
+  color: #F5A5DA
+} */
+
+  /* font-family: 'EB Garamond', serif; */
+
+a{
+  text-decoration: none;
 }
-
-body {
-    background-color: #fff
-
+a :hover{
+  color: #F5A5DA;
 }
 
 * {
   margin: 0;
   color: #2d6a4f;
+  font-family: 'Coiny', cursive;
 }
 .navbar {
   display: flex;
   align-items: center;
   padding: 2rem 1rem;
   margin: 2rem 0;
-  background-color: #d8f3dc;
+  background-color: #E6F9E6;
+}
+.navbar :hover{
+  font-style: italic;
 }
 .navbar h1 {
-  color: 2d6a4f;
-  font-size: 40px;
+  /* color: 2d6a4f; */
+  font-size: 60px;
   letter-spacing: 8px;
+  font-family: 'Rampart One', cursive; 
+  color: #F5A5DA
 }
-.navbar .links {
+/* .navbar .links {
   margin-left: auto;
-}
+} */
 .navbar a {
-  margin-left: 16px;
+  margin-left: 20px;
+  text-decoration: none;
+
+}
+
+.navbar .navbar-links{
+  margin-left: auto;
   text-decoration: none;
   padding: 6px;
+font-family: 'Montserrat Alternates', sans-serif;
+  color: black;
 }
-.navbar h1:hover {
-  color: #a98467;
-}
+
 
 
 .cards {
   padding: 10px 16px;
   margin: 20px 0;
+
 } 
 
 .body{
   color: #40916c;
+
 }
 
-.cards h2 {
+/* .cards h2 {
   font-size: 25px;
   color: #a98467;
   margin-bottom: 8px;
   font-family: 'Barlow', sans-serif;
   text-align: center;
   background-color: #ededef;
-}
+} */
 
-.form {
-  display: flex;
-  align-items: center;
-  padding: 0rem 1rem;
-  margin: 2rem 0;
-  text-align: center;
-  font-family: 'Barlow', sans-serif;
-  background-color: #d9fff5;
-}
-.form h2 {
-  font-size: 30px;
-  color: #2d6a4f;
-  margin-bottom: 30px;
-}
-.form input, .form select {
-  width: 100%;
-  padding: 10px 10px;
-  margin: 20px 0;
-  border: 1px solid #a3b18a;
-  box-sizing: border-box;
-  display: flex;
-  border-radius: 15px;
-}
-
-.form textarea{
-  width: 100%;
-  padding: 50px 10px;
-  margin: 20px 0;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  display: flex;
-  border-radius: 15px;
-  font-family: 'Barlow', sans-serif;
-
-}
-
-.form button {
-  background: #d8f3dc;
-  color: #718355;
+button {
+  background: #F9E6F2;
+  color: #434142;
   border: 1;
-  border-color: #a3b18a;
+  border-color: #E0D3DB;
   padding: 10px;
-  border-radius: 15px;
+  border-radius: 20px;
   font-size: 15px;
   cursor: pointer;
-  margin-top: 20px;
-  font-family: 'Barlow', sans-serif;
-
-} 
-
-.login-form {
-  display: block;
-  align-items: center;
-  padding: 15% 30%;
-  text-align: center;
-  font-family: 'Barlow', sans-serif;
-
-}
-
-.login-form input, .form select {
-  width: 100%;
-  padding: 10px 10px;
-  margin: 20px 0;
-  border: 1px solid #a3b18a;
-  box-sizing: border-box;
-  display: flex;
-  border-radius: 15px;
-}
-
-.login-form textarea{
-  width: 100%;
-  padding: 50px 10px;
-  margin: 20px 0;
-  border: 1px solid #ddd;
-  box-sizing: border-box;
-  display: flex;
-  border-radius: 15px;
-  font-family: 'Barlow', sans-serif;
-
-}
-
-.login-form button {
-  background: #d8f3dc;
-  color: #718355;
-  border: 1;
-  border-color: #a3b18a;
-  padding: 10px;
-  border-radius: 15px;
-  font-size: 15px;
-  cursor: pointer;
-  margin-top: 20px;
-  font-family: 'Barlow', sans-serif;
-
+  margin: 20px;
+  font-family: 'Montserrat Alternates', sans-serif;
 } 
 
 
@@ -171,20 +108,6 @@ body {
   font-size: 50px;
 color: #1b4332;
 margin-bottom: 10px;
-}
-
-.home-class button {
-    background: #d8f3dc;
-    color: #718355;
-    border: 1;
-    border-color: #a3b18a;
-    padding: 15px;
-    border-radius: 15px;
-    font-size: 15px;
-    cursor: pointer;
-    margin-top: 20px;
-    
-   
 }
 
 .cards {
