@@ -10,7 +10,6 @@ const UserListItem = ({currentUser, setCurrentUser,
 
   const handleCurrentUserClick = () => {
     setCurrentUser(id)
-    console.log(currentUser)
     history.push(`/users/${id}/plants`)
   }
 
@@ -32,5 +31,3 @@ const UserListItem = ({currentUser, setCurrentUser,
 };
 
 export default UserListItem;
-
-// to={`/users/${id}/plants`}

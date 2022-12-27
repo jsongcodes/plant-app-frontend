@@ -16,8 +16,7 @@ import PlantDetail from "./PlantDetail";
 import PlantEditForm from "./PlantEditForm";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null); //anytime there's an update, we want to reflect that in their info. login, log out, add new plant, delete plant, updating plant. when user logs in, you have the id of current user available. pass the currentuser wherever you need.
-
+  const [currentUser, setCurrentUser] = useState(null);
   const [users, setUsers] = useState([]);
   const [plants, setPlants] = useState([]);
 
@@ -80,6 +79,7 @@ const App = () => {
       .then((res) => res.json())
       .then((plant) => {
         setPlants(plants.concat(plant));
+        setCurrentUser()
         history.push(`/users/${currentUser}/plants/${plant.id}`);
       });
   };

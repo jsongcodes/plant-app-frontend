@@ -4,7 +4,6 @@ import CardMedia from "@mui/material/CardMedia";
 import UserListItem from "./UserListItem";
 import Grid from "@mui/material/Grid";
 import { useHistory } from "react-router-dom";
-// import { Link } from "react-router-dom";
 
 const UsersList = ({ users, currentUser, setCurrentUser}) => {
 
