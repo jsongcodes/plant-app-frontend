@@ -1,33 +1,39 @@
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import {
+  useHistory,
+  useLocation,
+  Route,
+  Switch,
+} from "react-router-dom";
+import { useState, useEffect } from "react";
 import Home from "./Home";
-// import { Navigate } from "react-router-dom";
-
 import Navbar from "./Navbar";
 import NewUserForm from "./NewUserForm";
 import UserDetail from "./UserDetail";
 import UsersList from "./UsersList";
-
 import NewPlantForm from "./NewPlantForm";
 import PlantsList from "./PlantsList";
-// import PlantsToolBar from "./PlantsToolBar";
 import PlantDetail from "./PlantDetail";
 import PlantEditForm from "./PlantEditForm";
-import { useLocation } from "react-router-dom";
 
 const App = () => {
-  const history = useHistory();
-
-  // const { id } = useParams();
+  const [currentUser, setCurrentUser] = useState(null); //anytime there's an update, we want to reflect that in their info. login, log out, add new plant, delete plant, updating plant. when user logs in, you have the id of current user available. pass the currentuser wherever you need.
 
   const [users, setUsers] = useState([]);
   const [plants, setPlants] = useState([]);
 
+  const history = useHistory();
+  const location = useLocation();
+
+
   useEffect(() => {
     fetch(`http://localhost:9292/users`)
       .then((resp) => resp.json())
-      .then((users) => setUsers(users));
+      .then((users) => {setUsers(users)
+      });
+
+    fetch(`http://localhost:9292/plants`)
+      .then((resp) => resp.json())
+      .then((plants) => setPlants(plants));
   }, []);
 
   const addUser = (formData) => {
@@ -41,35 +47,24 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((newUser) => {
+        setCurrentUser(newUser.id)
         setUsers([...users, newUser]);
-        console.log("history:", history);
-        console.log("newUser.id:", newUser.id);
-        // Navigate to=`/users/${newUser.id}`;
-        history.push(`/users/${newUser.id}`);
+        if (currentUser !== null)
+        {history.push(`/users/${currentUser}/plants`);}
       });
   };
-
-  useEffect(() => {
-    fetch(`http://localhost:9292/plants`)
-      .then((resp) => resp.json())
-      .then((plants) => setPlants(plants));
-  }, []);
-
-  // const location = useLocation();
-  // const { id } = useParams();
 
   const handleDelete = (plantId) => {
     if (window.confirm("delete?")) {
       fetch(`http://localhost:9292/plants/${plantId}`, {
         method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((deletedPlant) => {
-          setPlants(plants.filter((plant) => plant.id !== deletedPlant.id));
-          // if (location.pathname !== "/plants") {
-          //   history.push("/plants");
-          // }
-        });
+      }).then(() => {
+        const filteredPlants = plants.filter((plant) => plant.id !== plantId);
+        setPlants(filteredPlants);
+        if (location.pathname !== "/plants") {
+          history.push(`/users/${currentUser}/plants`);
+        }
+      });
     }
   };
 
@@ -85,7 +80,7 @@ const App = () => {
       .then((res) => res.json())
       .then((plant) => {
         setPlants(plants.concat(plant));
-        history.push(`/plants/${plant.id}`);
+        history.push(`/users/${currentUser}/plants/${plant.id}`);
       });
   };
 
@@ -100,89 +95,78 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((updatedPlant) => {
-        // pessimistically update the plant in state after we get a response from the api
-        setPlants(
-          plants.map((plant) =>
-            plant.id === parseInt(id) ? updatedPlant : plant
-          )
-        );
-        history.push(`/plants/${updatedPlant.id}`);
+        const updatedArray = plants.map((plant) => {
+          if (plant.id === updatedPlant.id) {
+            return updatedPlant;
+          }
+          return plant;
+        });
+        setPlants(updatedArray);
+        history.push(`/users/${currentUser}/plants/${id}`);
       });
   };
 
   return (
-    <Router>
-      <Navbar />
+    <>
+      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser} />
       <Switch>
-      <Route exact path="/">
+        <Route exact path="/">
           <Home />
         </Route>
-
-        <Route exact path="/users">
-          <UsersList users={users} />
-        </Route>
-
-        <Route exact path="/users/new">
-          <NewUserForm addUser={addUser} />
-        </Route>
-        <Route
-          exact
-          path="/users/:id"
-          render={({ match }) => (
-            <UserDetail
-              user={users.find((user) => user.id === parseInt(match.params.id))}
-            />
-          )}
-        />
-
-        {/* <Route exact path="/plants">
-          <PlantsContainer
-            plants={plants}
-            setPlants={setPlants}
-            users={users}
-            setUsers={setUsers}
-          />
-        </Route> */}
-
-        <Route exact path="/plants">
-          <PlantsList plants={plants} handleDelete={handleDelete} />
-        </Route>
-        <Route exact path="/plants/new">
+        <Route exact path="/users/:user_id/plants/new">
           <NewPlantForm
-            // id={id}
             plants={plants}
             onAddPlant={addPlant}
             setPlants={setPlants}
+            currentUser={currentUser}
           />
         </Route>
-
+        <Route exact path="/users">
+          <UsersList users={users} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+        </Route>
+        <Route exact path="/users/new">
+          <NewUserForm setCurrentUser={setCurrentUser} currentUser={currentUser} addUser={addUser} />
+        </Route>
+        <Route
+          exact path="/users/:id/plants"
+          render={({ match }) => (
+            <UserDetail
+              user={users.find((user) => user.id === parseInt(match.params.id))}
+              currentUser={currentUser}
+            />
+          )}
+        />
+        <Route exact path="/plants">
+          <PlantsList plants={plants} handleDelete={handleDelete} />
+        </Route>
         <Route
           exact
-          path="/plants/:id"
+          path="/users/:user_id/plants/:id"
           render={({ match }) => (
             <PlantDetail
+           
               plant={plants.find(
                 (plant) => plant.id === parseInt(match.params.id)
               )}
               handleDelete={handleDelete}
+              currentUser={currentUser}
             />
           )}
         ></Route>
         <Route
           exact
-          path="/plants/:id/edit"
+          path="/users/:user_id/plants/:id/edit"
           render={({ match }) => (
             <PlantEditForm
               plant={plants.find(
                 (plant) => plant.id === parseInt(match.params.id)
               )}
               updatePlant={updatePlant}
-              // id={id}
             />
           )}
         />
       </Switch>
-    </Router>
+    </>
   );
 };
 
