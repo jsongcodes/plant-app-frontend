@@ -1,9 +1,4 @@
-import {
-  useHistory,
-  useLocation,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { useHistory, useLocation, Route, Switch } from "react-router-dom";
 import { useState, useEffect } from "react";
 import Home from "./Home";
 import Navbar from "./Navbar";
@@ -23,11 +18,11 @@ const App = () => {
   const history = useHistory();
   const location = useLocation();
 
-
   useEffect(() => {
     fetch(`http://localhost:9292/users`)
       .then((resp) => resp.json())
-      .then((users) => {setUsers(users)
+      .then((users) => {
+        setUsers(users);
       });
 
     fetch(`http://localhost:9292/plants`)
@@ -46,10 +41,9 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((newUser) => {
-        setCurrentUser(newUser.id)
+        setCurrentUser(newUser.id);
         setUsers([...users, newUser]);
-        if (currentUser !== null)
-        {history.push(`/users/${currentUser}/plants`);}
+        history.push(`/users/${newUser.id}/plants`);
       });
   };
 
@@ -77,9 +71,9 @@ const App = () => {
       body: JSON.stringify(formData),
     })
       .then((res) => res.json())
-      .then((plant) => {
-        setPlants(plants.concat(plant));
-        history.push(`/users/${currentUser}/plants/${plant.id}`);
+      .then((newPlant) => {
+        setPlants([...plants, newPlant]);
+        history.push(`/users/${currentUser}/plants/${newPlant.id}`);
       });
   };
 
@@ -121,13 +115,22 @@ const App = () => {
           />
         </Route>
         <Route exact path="/users">
-          <UsersList users={users} currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+          <UsersList
+            users={users}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+          />
         </Route>
         <Route exact path="/users/new">
-          <NewUserForm setCurrentUser={setCurrentUser} currentUser={currentUser} addUser={addUser} />
+          <NewUserForm
+            setCurrentUser={setCurrentUser}
+            currentUser={currentUser}
+            addUser={addUser}
+          />
         </Route>
         <Route
-          exact path="/users/:id/plants"
+          exact
+          path="/users/:id/plants"
           render={({ match }) => (
             <UserDetail
               user={users.find((user) => user.id === parseInt(match.params.id))}
@@ -143,7 +146,6 @@ const App = () => {
           path="/users/:user_id/plants/:id"
           render={({ match }) => (
             <PlantDetail
-           
               plant={plants.find(
                 (plant) => plant.id === parseInt(match.params.id)
               )}
