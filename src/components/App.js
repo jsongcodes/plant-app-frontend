@@ -79,7 +79,6 @@ const App = () => {
       .then((res) => res.json())
       .then((plant) => {
         setPlants(plants.concat(plant));
-        setCurrentUser()
         history.push(`/users/${currentUser}/plants/${plant.id}`);
       });
   };

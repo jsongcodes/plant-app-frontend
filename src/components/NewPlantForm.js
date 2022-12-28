@@ -11,8 +11,6 @@ const NewPlantForm = ({ onAddPlant, setPlants, currentUser }) => {
   const [sunlight_hours, setSunlightHours] = useState("");
   const [plant_description, setPlantDescription] = useState("");
 
-  //form container that either sets state with empty, or have all that information pre populated. depending on who is calling it, it will render with the info or not. put all of state inside of that container. BONUS.
-
   const handleSubmit = (e) => {
     e.preventDefault();
     onAddPlant({
